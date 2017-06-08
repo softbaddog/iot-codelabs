@@ -6,4 +6,4 @@
 - 调用其内置互联互通中间件（AgentTiny），控制NB-IoT通信模组，快速实现传感器数据与IoT平台交互；
 - 该场景由原来需要开发者自行搭建复杂的E2E物联网互通方案，到如今只需要基于Huawei LiteOS编写应用。其在基础构建时间上大大缩短，可以花更多精力用在创意应用的开发。
 
-![OceanConnect+LiteOS](usecase1.png)
+![OceanConnect+LiteOS](http://developer.huawei.com/ict/cn/hdc/assert/img/iot_1.png)
