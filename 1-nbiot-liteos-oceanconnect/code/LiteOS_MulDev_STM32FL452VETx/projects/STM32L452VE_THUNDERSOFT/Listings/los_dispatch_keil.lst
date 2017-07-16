@@ -1,0 +1,423 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;-------------------------------------------------------
+                       ---------------------
+    2 00000000         ; Copyright (c) <2013-2015>, <Huawei Technologies Co., L
+                       td>
+    3 00000000         ; All rights reserved.
+    4 00000000         ; Redistribution and use in source and binary forms, wit
+                       h or without modification,
+    5 00000000         ; are permitted provided that the following conditions a
+                       re met:
+    6 00000000         ; 1. Redistributions of source code must retain the abov
+                       e copyright notice, this list of
+    7 00000000         ; conditions and the following disclaimer.
+    8 00000000         ; 2. Redistributions in binary form must reproduce the a
+                       bove copyright notice, this list
+    9 00000000         ; of conditions and the following disclaimer in the docu
+                       mentation and/or other materials
+   10 00000000         ; provided with the distribution.
+   11 00000000         ; 3. Neither the name of the copyright holder nor the na
+                       mes of its contributors may be used
+   12 00000000         ; to endorse or promote products derived from this softw
+                       are without specific prior written
+   13 00000000         ; permission.
+   14 00000000         ; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+                        CONTRIBUTORS
+   15 00000000         ; "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDI
+                       NG, BUT NOT LIMITED TO,
+   16 00000000         ; THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
+                       FOR A PARTICULAR
+   17 00000000         ; PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGH
+                       T HOLDER OR
+   18 00000000         ; CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCID
+                       ENTAL, SPECIAL,
+   19 00000000         ; EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NO
+                       T LIMITED TO,
+   20 00000000         ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF U
+                       SE, DATA, OR PROFITS;
+   21 00000000         ; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY TH
+                       EORY OF LIABILITY,
+   22 00000000         ; WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUD
+                       ING NEGLIGENCE OR
+   23 00000000         ; OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS S
+                       OFTWARE, EVEN IF
+   24 00000000         ; ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   25 00000000         ;-------------------------------------------------------
+                       --------------------*/
+   26 00000000         ;-------------------------------------------------------
+                       ---------------------
+   27 00000000         ; Notice of Export Control Law
+   28 00000000         ; ===============================================
+   29 00000000         ; Huawei LiteOS may be subject to applicable export cont
+                       rol laws and regulations, which might
+   30 00000000         ; include those applicable to Huawei LiteOS of U.S. and 
+                       the country in which you are located.
+   31 00000000         ; Import, export and usage of Huawei LiteOS in any manne
+                       r by you shall be in compliance with such
+   32 00000000         ; applicable export control laws and regulations.
+   33 00000000         ;-------------------------------------------------------
+                       --------------------*/
+   34 00000000         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   35 00000000                 PRESERVE8
+   36 00000000         
+   37 00000000                 EXPORT           LOS_IntLock
+   38 00000000                 EXPORT           LOS_IntUnLock
+   39 00000000                 EXPORT           LOS_IntRestore
+   40 00000000                 EXPORT           LOS_StartToRun
+   41 00000000                 EXPORT           osTaskSchedule
+   42 00000000                 EXPORT           PendSV_Handler
+   43 00000000                 EXPORT           LOS_IntNumGet
+   44 00000000                 EXPORT           osDisableIRQ
+   45 00000000         
+   46 00000000                 IMPORT           g_stLosTask
+   47 00000000                 IMPORT           g_pfnTskSwitchHook
+   48 00000000                 IMPORT           g_bTaskScheduled
+   49 00000000         
+   50 00000000 E000ED04 
+                       OS_NVIC_INT_CTRL
+                               EQU              0xE000ED04
+   51 00000000 E000ED20 
+                       OS_NVIC_SYSPRI2
+                               EQU              0xE000ED20
+   52 00000000 F0F00000 
+                       OS_NVIC_PENDSV_PRI
+                               EQU              0xF0F00000
+   53 00000000 10000000 
+                       OS_NVIC_PENDSVSET
+                               EQU              0x10000000
+   54 00000000 00000010 
+                       OS_TASK_STATUS_RUNNING
+                               EQU              0x0010
+   55 00000000         
+   56 00000000                 AREA             |.text|, CODE, READONLY
+   57 00000000                 THUMB
+   58 00000000                 REQUIRE8
+   59 00000000         
+   60 00000000         LOS_StartToRun
+   61 00000000 4C34            LDR              R4, =OS_NVIC_SYSPRI2
+   62 00000002 4D35            LDR              R5, =OS_NVIC_PENDSV_PRI
+   63 00000004 6025            STR              R5, [R4]
+   64 00000006         
+   65 00000006 4835            LDR              R0, =g_bTaskScheduled
+   66 00000008 F04F 0101       MOV              R1, #1
+   67 0000000C 6001            STR              R1, [R0]
+   68 0000000E         
+   69 0000000E F04F 0002       MOV              R0, #2
+   70 00000012 F380 8814       MSR              CONTROL, R0
+   71 00000016         
+   72 00000016         
+   73 00000016 4832            LDR              R0, =g_stLosTask
+   74 00000018 6842            LDR              R2, [R0, #4]
+   75 0000001A 4831            LDR              R0, =g_stLosTask
+   76 0000001C 6002            STR              R2, [R0]
+   77 0000001E         
+   78 0000001E 4B30            LDR              R3, =g_stLosTask
+   79 00000020 6818            LDR              R0, [R3]
+   80 00000022 8887            LDRH             R7, [R0 , #4]
+   81 00000024 F04F 0810       MOV              R8,  #OS_TASK_STATUS_RUNNING
+   82 00000028 EA47 0708       ORR              R7,  R7,  R8
+   83 0000002C 8087            STRH             R7,  [R0 , #4]
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   84 0000002E         
+   85 0000002E F8D0 C000       LDR              R12, [R0]
+   86 00000032 F10C 0C64       ADD              R12, R12, #100
+   87 00000036         
+   88 00000036 E8BC 00FF       LDMFD            R12!, {R0-R7}
+   89 0000003A F10C 0C48       ADD              R12, R12, #72
+   90 0000003E F38C 8809       MSR              PSP, R12
+   91 00000042 ED2D 0A01       VPUSH            S0          ;
+   92 00000046 ECBD 0A01       VPOP             S0          ;
+   93 0000004A         
+   94 0000004A 46AE            MOV              LR, R5
+   95 0000004C         ;MSR     xPSR, R7
+   96 0000004C         
+   97 0000004C B662            CPSIE            I
+   98 0000004E 4730            BX               R6
+   99 00000050         
+  100 00000050         LOS_IntNumGet
+  101 00000050 F3EF 8005       MRS              R0, IPSR
+  102 00000054 4770            BX               LR
+  103 00000056         
+  104 00000056         osDisableIRQ
+  105 00000056 B672            CPSID            I
+  106 00000058 4770            BX               LR
+  107 0000005A         
+  108 0000005A         LOS_IntLock
+  109 0000005A F3EF 8010       MRS              R0, PRIMASK
+  110 0000005E B672            CPSID            I
+  111 00000060 4770            BX               LR
+  112 00000062         
+  113 00000062         LOS_IntUnLock
+  114 00000062 F3EF 8010       MRS              R0, PRIMASK
+  115 00000066 B662            CPSIE            I
+  116 00000068 4770            BX               LR
+  117 0000006A         
+  118 0000006A         LOS_IntRestore
+  119 0000006A F380 8810       MSR              PRIMASK, R0
+  120 0000006E 4770            BX               LR
+  121 00000070         
+  122 00000070         osTaskSchedule
+  123 00000070 481C            LDR              R0, =OS_NVIC_INT_CTRL
+  124 00000072 F04F 5180       LDR              R1, =OS_NVIC_PENDSVSET
+  125 00000076 6001            STR              R1, [R0]
+  126 00000078 4770            BX               LR
+  127 0000007A         
+  128 0000007A         PendSV_Handler
+  129 0000007A F3EF 8C10       MRS              R12, PRIMASK
+  130 0000007E B672            CPSID            I
+  131 00000080         
+  132 00000080 4A19            LDR              R2, =g_pfnTskSwitchHook
+  133 00000082 6812            LDR              R2, [R2]
+  134 00000084 B122            CBZ              R2, TaskSwitch
+  135 00000086 E92D 5000       PUSH             {R12, LR}
+  136 0000008A 4790            BLX              R2
+  137 0000008C E8BD 5000       POP              {R12, LR}
+  138 00000090         
+  139 00000090         TaskSwitch
+  140 00000090 F3EF 8009       MRS              R0, PSP
+  141 00000094         
+  142 00000094 E920 1FF0       STMFD            R0!, {R4-R12}
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+  143 00000098 ED20 8B10       VSTMDB           R0!, {D8-D15}
+  144 0000009C         
+  145 0000009C 4D10            LDR              R5, =g_stLosTask
+  146 0000009E 682E            LDR              R6, [R5]
+  147 000000A0 6030            STR              R0, [R6]
+  148 000000A2         
+  149 000000A2         
+  150 000000A2 88B7            LDRH             R7, [R6 , #4]
+  151 000000A4 F04F 0810       MOV              R8,#OS_TASK_STATUS_RUNNING
+  152 000000A8 EA27 0708       BIC              R7, R7, R8
+  153 000000AC 80B7            STRH             R7, [R6 , #4]
+  154 000000AE         
+  155 000000AE         
+  156 000000AE 480C            LDR              R0, =g_stLosTask
+  157 000000B0 6840            LDR              R0, [R0, #4]
+  158 000000B2 6028            STR              R0, [R5]
+  159 000000B4         
+  160 000000B4         
+  161 000000B4 8887            LDRH             R7, [R0 , #4]
+  162 000000B6 F04F 0810       MOV              R8,  #OS_TASK_STATUS_RUNNING
+  163 000000BA EA47 0708       ORR              R7, R7, R8
+  164 000000BE 8087            STRH             R7,  [R0 , #4]
+  165 000000C0         
+  166 000000C0 6801            LDR              R1,   [R0]
+  167 000000C2 ECB1 8B10       VLDMIA           R1!, {D8-D15}
+  168 000000C6 E8B1 1FF0       LDMFD            R1!, {R4-R12}
+  169 000000CA F381 8809       MSR              PSP,  R1
+  170 000000CE         
+  171 000000CE F38C 8810       MSR              PRIMASK, R12
+  172 000000D2 4770            BX               LR
+  173 000000D4         
+  174 000000D4                 END
+              E000ED20 
+              F0F00000 
+              00000000 
+              00000000 
+              E000ED04 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\los_dispatch_keil.d -o.\objects\los_dispatch_keil.o -
+I.\RTE\_HuaweiLiteOS -IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Incl
+ude -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine=
+"__UVISION_VERSION SETA 523" --predefine="STM32L452xx SETA 1" --list=.\listings
+\los_dispatch_keil.lst ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 56 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      None
+Comment: .text unused
+LOS_IntLock 0000005A
+
+Symbol: LOS_IntLock
+   Definitions
+      At line 108 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 37 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: LOS_IntLock used once
+LOS_IntNumGet 00000050
+
+Symbol: LOS_IntNumGet
+   Definitions
+      At line 100 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 43 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: LOS_IntNumGet used once
+LOS_IntRestore 0000006A
+
+Symbol: LOS_IntRestore
+   Definitions
+      At line 118 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 39 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: LOS_IntRestore used once
+LOS_IntUnLock 00000062
+
+Symbol: LOS_IntUnLock
+   Definitions
+      At line 113 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 38 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: LOS_IntUnLock used once
+LOS_StartToRun 00000000
+
+Symbol: LOS_StartToRun
+   Definitions
+      At line 60 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 40 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: LOS_StartToRun used once
+PendSV_Handler 0000007A
+
+Symbol: PendSV_Handler
+   Definitions
+      At line 128 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 42 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: PendSV_Handler used once
+TaskSwitch 00000090
+
+Symbol: TaskSwitch
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 139 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 134 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: TaskSwitch used once
+osDisableIRQ 00000056
+
+Symbol: osDisableIRQ
+   Definitions
+      At line 104 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 44 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: osDisableIRQ used once
+osTaskSchedule 00000070
+
+Symbol: osTaskSchedule
+   Definitions
+      At line 122 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 41 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: osTaskSchedule used once
+10 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+OS_NVIC_INT_CTRL E000ED04
+
+Symbol: OS_NVIC_INT_CTRL
+   Definitions
+      At line 50 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 123 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: OS_NVIC_INT_CTRL used once
+OS_NVIC_PENDSVSET 10000000
+
+Symbol: OS_NVIC_PENDSVSET
+   Definitions
+      At line 53 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 124 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: OS_NVIC_PENDSVSET used once
+OS_NVIC_PENDSV_PRI F0F00000
+
+Symbol: OS_NVIC_PENDSV_PRI
+   Definitions
+      At line 52 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 62 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: OS_NVIC_PENDSV_PRI used once
+OS_NVIC_SYSPRI2 E000ED20
+
+Symbol: OS_NVIC_SYSPRI2
+   Definitions
+      At line 51 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 61 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: OS_NVIC_SYSPRI2 used once
+OS_TASK_STATUS_RUNNING 00000010
+
+Symbol: OS_TASK_STATUS_RUNNING
+   Definitions
+      At line 54 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 81 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+      At line 151 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+      At line 162 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+g_bTaskScheduled 00000000
+
+Symbol: g_bTaskScheduled
+   Definitions
+      At line 48 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 65 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: g_bTaskScheduled used once
+g_pfnTskSwitchHook 00000000
+
+Symbol: g_pfnTskSwitchHook
+   Definitions
+      At line 47 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 132 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+Comment: g_pfnTskSwitchHook used once
+g_stLosTask 00000000
+
+Symbol: g_stLosTask
+   Definitions
+      At line 46 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+   Uses
+      At line 73 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+      At line 75 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+      At line 78 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+      At line 145 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+      At line 156 in file ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+
+3 symbols
+354 symbols in table
