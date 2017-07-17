@@ -3681,60 +3681,60 @@ Memory Map of the image
 
   Image Entry point : 0x08000195
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000a19c, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x00009c38])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000a19c, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x00009c3c])
 
     Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00009b8c, Max: 0x00080000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x08000000   0x00000194   Data   RO         5883    RESET               startup_stm32l452xx.o
-    0x08000194   0x00000000   Code   RO         6079  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000194   0x00000004   Code   RO         6376    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x08000198   0x00000004   Code   RO         6379    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x0800019c   0x00000000   Code   RO         6381    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x0800019c   0x00000000   Code   RO         6383    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x0800019c   0x00000008   Code   RO         6384    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x080001a4   0x00000000   Code   RO         6386    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x080001a4   0x00000000   Code   RO         6388    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x080001a4   0x00000004   Code   RO         6377    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000000   0x00000194   Data   RO         6036    RESET               startup_stm32l452xx.o
+    0x08000194   0x00000000   Code   RO         6281  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000194   0x00000004   Code   RO         6578    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x08000198   0x00000004   Code   RO         6581    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x0800019c   0x00000000   Code   RO         6583    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x0800019c   0x00000000   Code   RO         6585    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x0800019c   0x00000008   Code   RO         6586    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080001a4   0x00000000   Code   RO         6588    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x080001a4   0x00000000   Code   RO         6590    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x080001a4   0x00000004   Code   RO         6579    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x080001a8   0x00000102   Code   RO         1617    .text               los_dispatch_keil.o
     0x080002aa   0x00000002   PAD
-    0x080002ac   0x00000024   Code   RO         5884    .text               startup_stm32l452xx.o
-    0x080002d0   0x00000068   Code   RO         6082    .text               mc_w.l(uldiv.o)
-    0x08000338   0x00000024   Code   RO         6084    .text               mc_w.l(rand.o)
-    0x0800035c   0x00000024   Code   RO         6087    .text               mc_w.l(memcpya.o)
-    0x08000380   0x00000024   Code   RO         6089    .text               mc_w.l(memseta.o)
-    0x080003a4   0x00000024   Code   RO         6091    .text               mc_w.l(strstr.o)
-    0x080003c8   0x0000000e   Code   RO         6093    .text               mc_w.l(strlen.o)
-    0x080003d6   0x0000001a   Code   RO         6095    .text               mc_w.l(memcmp.o)
-    0x080003f0   0x00000038   Code   RO         6362    .text               mc_w.l(__0sscanf.o)
-    0x08000428   0x00000152   Code   RO         6364    .text               mc_w.l(_scanf_int.o)
-    0x0800057a   0x000000e6   Code   RO         6366    .text               mc_w.l(_scanf_str.o)
-    0x08000660   0x0000001a   Code   RO         6368    .text               mc_w.l(atoi.o)
-    0x0800067a   0x000000de   Code   RO         6370    .text               mf_w.l(ddiv.o)
-    0x08000758   0x00000030   Code   RO         6374    .text               mf_w.l(dfixul.o)
-    0x08000788   0x0000002c   Code   RO         6393    .text               mc_w.l(uidiv.o)
-    0x080007b4   0x0000001e   Code   RO         6395    .text               mc_w.l(llshl.o)
-    0x080007d2   0x00000020   Code   RO         6397    .text               mc_w.l(llushr.o)
-    0x080007f2   0x0000001c   Code   RO         6406    .text               mc_w.l(_chval.o)
+    0x080002ac   0x00000024   Code   RO         6037    .text               startup_stm32l452xx.o
+    0x080002d0   0x00000068   Code   RO         6284    .text               mc_w.l(uldiv.o)
+    0x08000338   0x00000024   Code   RO         6286    .text               mc_w.l(rand.o)
+    0x0800035c   0x00000024   Code   RO         6289    .text               mc_w.l(memcpya.o)
+    0x08000380   0x00000024   Code   RO         6291    .text               mc_w.l(memseta.o)
+    0x080003a4   0x00000024   Code   RO         6293    .text               mc_w.l(strstr.o)
+    0x080003c8   0x0000000e   Code   RO         6295    .text               mc_w.l(strlen.o)
+    0x080003d6   0x0000001a   Code   RO         6297    .text               mc_w.l(memcmp.o)
+    0x080003f0   0x00000038   Code   RO         6564    .text               mc_w.l(__0sscanf.o)
+    0x08000428   0x00000152   Code   RO         6566    .text               mc_w.l(_scanf_int.o)
+    0x0800057a   0x000000e6   Code   RO         6568    .text               mc_w.l(_scanf_str.o)
+    0x08000660   0x0000001a   Code   RO         6570    .text               mc_w.l(atoi.o)
+    0x0800067a   0x000000de   Code   RO         6572    .text               mf_w.l(ddiv.o)
+    0x08000758   0x00000030   Code   RO         6576    .text               mf_w.l(dfixul.o)
+    0x08000788   0x0000002c   Code   RO         6595    .text               mc_w.l(uidiv.o)
+    0x080007b4   0x0000001e   Code   RO         6597    .text               mc_w.l(llshl.o)
+    0x080007d2   0x00000020   Code   RO         6599    .text               mc_w.l(llushr.o)
+    0x080007f2   0x0000001c   Code   RO         6608    .text               mc_w.l(_chval.o)
     0x0800080e   0x00000002   PAD
-    0x08000810   0x00000028   Code   RO         6408    .text               mc_w.l(scanf_char.o)
-    0x08000838   0x00000040   Code   RO         6410    .text               mc_w.l(_sgetc.o)
-    0x08000878   0x00000070   Code   RO         6412    .text               mc_w.l(strtol.o)
-    0x080008e8   0x00000000   Code   RO         6414    .text               mc_w.l(iusefp.o)
-    0x080008e8   0x000000ba   Code   RO         6415    .text               mf_w.l(depilogue.o)
-    0x080009a2   0x0000015e   Code   RO         6417    .text               mf_w.l(dadd.o)
-    0x08000b00   0x000000ea   Code   RO         6419    .text               mf_w.l(dmul.o)
+    0x08000810   0x00000028   Code   RO         6610    .text               mc_w.l(scanf_char.o)
+    0x08000838   0x00000040   Code   RO         6612    .text               mc_w.l(_sgetc.o)
+    0x08000878   0x00000070   Code   RO         6614    .text               mc_w.l(strtol.o)
+    0x080008e8   0x00000000   Code   RO         6616    .text               mc_w.l(iusefp.o)
+    0x080008e8   0x000000ba   Code   RO         6617    .text               mf_w.l(depilogue.o)
+    0x080009a2   0x0000015e   Code   RO         6619    .text               mf_w.l(dadd.o)
+    0x08000b00   0x000000ea   Code   RO         6621    .text               mf_w.l(dmul.o)
     0x08000bea   0x00000002   PAD
-    0x08000bec   0x00000030   Code   RO         6421    .text               mf_w.l(cdrcmple.o)
-    0x08000c1c   0x00000024   Code   RO         6423    .text               mc_w.l(init.o)
-    0x08000c40   0x00000024   Code   RO         6426    .text               mc_w.l(llsshr.o)
-    0x08000c64   0x00000008   Code   RO         6430    .text               mc_w.l(ctype_o.o)
-    0x08000c6c   0x00000012   Code   RO         6452    .text               mc_w.l(isspace_o.o)
+    0x08000bec   0x00000030   Code   RO         6623    .text               mf_w.l(cdrcmple.o)
+    0x08000c1c   0x00000024   Code   RO         6625    .text               mc_w.l(init.o)
+    0x08000c40   0x00000024   Code   RO         6628    .text               mc_w.l(llsshr.o)
+    0x08000c64   0x00000008   Code   RO         6632    .text               mc_w.l(ctype_o.o)
+    0x08000c6c   0x00000012   Code   RO         6654    .text               mc_w.l(isspace_o.o)
     0x08000c7e   0x00000002   PAD
-    0x08000c80   0x00000332   Code   RO         6458    .text               mc_w.l(_scanf.o)
-    0x08000fb2   0x000000a4   Code   RO         6460    .text               mc_w.l(_strtoul.o)
-    0x08001056   0x00000056   Code   RO         6474    .text               mc_w.l(__dczerorl2.o)
+    0x08000c80   0x00000332   Code   RO         6660    .text               mc_w.l(_scanf.o)
+    0x08000fb2   0x000000a4   Code   RO         6662    .text               mc_w.l(_strtoul.o)
+    0x08001056   0x00000056   Code   RO         6676    .text               mc_w.l(__dczerorl2.o)
     0x080010ac   0x00000004   Code   RO         2072    i.BusFault_Handler  stm32l4xx_it.o
     0x080010b0   0x00000002   Code   RO         2073    i.DebugMon_Handler  stm32l4xx_it.o
     0x080010b2   0x00000002   PAD
@@ -3848,7 +3848,7 @@ Memory Map of the image
     0x08003e7c   0x00000002   Code   RO         2079    i.SVC_Handler       stm32l4xx_it.o
     0x08003e7e   0x0000000c   Code   RO         1629    i.SysTick_Handler   los_bsp_adapter.o
     0x08003e8a   0x00000002   PAD
-    0x08003e8c   0x000000c4   Code   RO         5893    i.SystemClock_Config  main.o
+    0x08003e8c   0x000000c4   Code   RO         6046    i.SystemClock_Config  main.o
     0x08003f50   0x00000050   Code   RO         2163    i.SystemInit        system_stm32l4xx.o
     0x08003fa0   0x000000f8   Code   RO         3791    i.UART_AdvFeatureConfig  stm32l4xx_hal_uart.o
     0x08004098   0x00000074   Code   RO         3792    i.UART_CheckIdleState  stm32l4xx_hal_uart.o
@@ -3862,76 +3862,76 @@ Memory Map of the image
     0x080047c0   0x0000000a   Code   RO         2080    i.USART2_IRQHandler  stm32l4xx_it.o
     0x080047ca   0x0000000a   Code   RO         2081    i.USART3_IRQHandler  stm32l4xx_it.o
     0x080047d4   0x00000004   Code   RO         2082    i.UsageFault_Handler  stm32l4xx_it.o
-    0x080047d8   0x00000004   Code   RO         5894    i._Error_Handler    main.o
-    0x080047dc   0x00000028   Code   RO         6336    i.__0sprintf        mc_w.l(printfa.o)
-    0x08004804   0x00000008   Code   RO         6399    i.__aeabi_errno_addr  mc_w.l(errno.o)
-    0x0800480c   0x0000000e   Code   RO         6468    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x0800481a   0x00000002   Code   RO         6469    i.__scatterload_null  mc_w.l(handlers.o)
-    0x0800481c   0x0000000e   Code   RO         6470    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x080047d8   0x00000004   Code   RO         6047    i._Error_Handler    main.o
+    0x080047dc   0x00000028   Code   RO         6538    i.__0sprintf        mc_w.l(printfa.o)
+    0x08004804   0x00000008   Code   RO         6601    i.__aeabi_errno_addr  mc_w.l(errno.o)
+    0x0800480c   0x0000000e   Code   RO         6670    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0800481a   0x00000002   Code   RO         6671    i.__scatterload_null  mc_w.l(handlers.o)
+    0x0800481c   0x0000000e   Code   RO         6672    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x0800482a   0x00000002   PAD
-    0x0800482c   0x0000018a   Code   RO         6341    i._fp_digits        mc_w.l(printfa.o)
+    0x0800482c   0x0000018a   Code   RO         6543    i._fp_digits        mc_w.l(printfa.o)
     0x080049b6   0x00000002   PAD
-    0x080049b8   0x000006e2   Code   RO         6342    i._printf_core      mc_w.l(printfa.o)
-    0x0800509a   0x00000024   Code   RO         6343    i._printf_post_padding  mc_w.l(printfa.o)
-    0x080050be   0x0000002e   Code   RO         6344    i._printf_pre_padding  mc_w.l(printfa.o)
-    0x080050ec   0x0000000a   Code   RO         6346    i._sputc            mc_w.l(printfa.o)
+    0x080049b8   0x000006e2   Code   RO         6544    i._printf_core      mc_w.l(printfa.o)
+    0x0800509a   0x00000024   Code   RO         6545    i._printf_post_padding  mc_w.l(printfa.o)
+    0x080050be   0x0000002e   Code   RO         6546    i._printf_pre_padding  mc_w.l(printfa.o)
+    0x080050ec   0x0000000a   Code   RO         6548    i._sputc            mc_w.l(printfa.o)
     0x080050f6   0x00000002   PAD
     0x080050f8   0x000000cc   Code   RO         5009    i.agenttiny_res_init  agent_client_interface.o
     0x080051c4   0x00000010   Code   RO         5010    i.agenttiny_set_iotaddrinfo  agent_client_interface.o
     0x080051d4   0x00000054   Code   RO         5052    i.checksum          microtcpip.o
-    0x08005228   0x0000002a   Code   RO         5388    i.coap_all_build    coap_liteos_port.o
+    0x08005228   0x0000002a   Code   RO         5541    i.coap_all_build    coap_liteos_port.o
     0x08005252   0x00000002   PAD
-    0x08005254   0x000000f0   Code   RO         5389    i.coap_alloc_source  coap_liteos_port.o
-    0x08005344   0x000001ea   Code   RO         5302    i.coap_build        coap.o
-    0x0800552e   0x00000046   Code   RO         5303    i.coap_findOptions  coap.o
-    0x08005574   0x0000004c   Code   RO         5390    i.coap_free_pkt     coap_liteos_port.o
-    0x080055c0   0x00000088   Code   RO         5391    i.coap_free_source  coap_liteos_port.o
-    0x08005648   0x00000024   Code   RO         5392    i.coap_get_random   coap_liteos_port.o
-    0x0800566c   0x00000034   Code   RO         5393    i.coap_get_token    coap_liteos_port.o
-    0x080056a0   0x000000dc   Code   RO         5304    i.coap_handle_req   coap.o
-    0x0800577c   0x00000006   Code   RO         5394    i.coap_internal_getsock  coap_liteos_port.o
+    0x08005254   0x000000f0   Code   RO         5542    i.coap_alloc_source  coap_liteos_port.o
+    0x08005344   0x000001ea   Code   RO         5455    i.coap_build        coap.o
+    0x0800552e   0x00000046   Code   RO         5456    i.coap_findOptions  coap.o
+    0x08005574   0x0000004c   Code   RO         5543    i.coap_free_pkt     coap_liteos_port.o
+    0x080055c0   0x00000088   Code   RO         5544    i.coap_free_source  coap_liteos_port.o
+    0x08005648   0x00000024   Code   RO         5545    i.coap_get_random   coap_liteos_port.o
+    0x0800566c   0x00000034   Code   RO         5546    i.coap_get_token    coap_liteos_port.o
+    0x080056a0   0x000000dc   Code   RO         5457    i.coap_handle_req   coap.o
+    0x0800577c   0x00000006   Code   RO         5547    i.coap_internal_getsock  coap_liteos_port.o
     0x08005782   0x00000002   PAD
-    0x08005784   0x00000082   Code   RO         5395    i.coap_lowlevel_send  coap_liteos_port.o
-    0x08005806   0x00000076   Code   RO         5305    i.coap_make_response  coap.o
-    0x0800587c   0x00000060   Code   RO         5396    i.coap_malloc_pkt   coap_liteos_port.o
-    0x080058dc   0x00000024   Code   RO         5308    i.coap_option_nibble  coap.o
-    0x08005900   0x00000054   Code   RO         5309    i.coap_parse        coap.o
-    0x08005954   0x0000003c   Code   RO         5310    i.coap_parseHeader  coap.o
-    0x08005990   0x000000de   Code   RO         5311    i.coap_parseOption  coap.o
-    0x08005a6e   0x00000098   Code   RO         5312    i.coap_parseOptionsAndPayload  coap.o
-    0x08005b06   0x00000032   Code   RO         5313    i.coap_parseToken   coap.o
-    0x08005b38   0x0000003c   Code   RO         5397    i.coap_resource_init  coap_liteos_port.o
-    0x08005b74   0x0000001e   Code   RO         5398    i.coap_set_header   coap_liteos_port.o
+    0x08005784   0x00000082   Code   RO         5548    i.coap_lowlevel_send  coap_liteos_port.o
+    0x08005806   0x00000076   Code   RO         5458    i.coap_make_response  coap.o
+    0x0800587c   0x00000060   Code   RO         5549    i.coap_malloc_pkt   coap_liteos_port.o
+    0x080058dc   0x00000024   Code   RO         5461    i.coap_option_nibble  coap.o
+    0x08005900   0x00000054   Code   RO         5462    i.coap_parse        coap.o
+    0x08005954   0x0000003c   Code   RO         5463    i.coap_parseHeader  coap.o
+    0x08005990   0x000000de   Code   RO         5464    i.coap_parseOption  coap.o
+    0x08005a6e   0x00000098   Code   RO         5465    i.coap_parseOptionsAndPayload  coap.o
+    0x08005b06   0x00000032   Code   RO         5466    i.coap_parseToken   coap.o
+    0x08005b38   0x0000003c   Code   RO         5550    i.coap_resource_init  coap_liteos_port.o
+    0x08005b74   0x0000001e   Code   RO         5551    i.coap_set_header   coap_liteos_port.o
     0x08005b92   0x00000002   PAD
-    0x08005b94   0x00000044   Code   RO         5399    i.coap_set_iotaddr_info  coap_liteos_port.o
-    0x08005bd8   0x0000005c   Code   RO         5400    i.coap_set_option   coap_liteos_port.o
-    0x08005c34   0x0000001c   Code   RO         5401    i.coap_set_payload  coap_liteos_port.o
-    0x08005c50   0x00000018   Code   RO         5402    i.coap_set_token    coap_liteos_port.o
+    0x08005b94   0x00000044   Code   RO         5552    i.coap_set_iotaddr_info  coap_liteos_port.o
+    0x08005bd8   0x0000005c   Code   RO         5553    i.coap_set_option   coap_liteos_port.o
+    0x08005c34   0x0000001c   Code   RO         5554    i.coap_set_payload  coap_liteos_port.o
+    0x08005c50   0x00000018   Code   RO         5555    i.coap_set_token    coap_liteos_port.o
     0x08005c68   0x00000020   Code   RO         5053    i.create_micro_socket  microtcpip.o
     0x08005c88   0x000000a0   Code   RO         4868    i.dataReport        agenttiny.o
-    0x08005d28   0x0000017c   Code   RO         5786    i.enc28j60Init      spi_enc28j60.o
-    0x08005ea4   0x000000c0   Code   RO         5787    i.enc28j60PacketReceive  spi_enc28j60.o
-    0x08005f64   0x00000066   Code   RO         5788    i.enc28j60PacketSend  spi_enc28j60.o
-    0x08005fca   0x00000032   Code   RO         5789    i.enc28j60PhyWrite  spi_enc28j60.o
-    0x08005ffc   0x00000014   Code   RO         5790    i.enc28j60Read      spi_enc28j60.o
-    0x08006010   0x00000044   Code   RO         5791    i.enc28j60ReadBuffer  spi_enc28j60.o
-    0x08006054   0x00000054   Code   RO         5792    i.enc28j60ReadOp    spi_enc28j60.o
-    0x080060a8   0x00000034   Code   RO         5793    i.enc28j60SetBank   spi_enc28j60.o
-    0x080060dc   0x00000018   Code   RO         5794    i.enc28j60Write     spi_enc28j60.o
-    0x080060f4   0x00000040   Code   RO         5795    i.enc28j60WriteBuffer  spi_enc28j60.o
-    0x08006134   0x00000048   Code   RO         5796    i.enc28j60WriteOp   spi_enc28j60.o
-    0x0800617c   0x00000010   Code   RO         5797    i.enc28j60clkout    spi_enc28j60.o
+    0x08005d28   0x0000017c   Code   RO         5939    i.enc28j60Init      spi_enc28j60.o
+    0x08005ea4   0x000000c0   Code   RO         5940    i.enc28j60PacketReceive  spi_enc28j60.o
+    0x08005f64   0x00000066   Code   RO         5941    i.enc28j60PacketSend  spi_enc28j60.o
+    0x08005fca   0x00000032   Code   RO         5942    i.enc28j60PhyWrite  spi_enc28j60.o
+    0x08005ffc   0x00000014   Code   RO         5943    i.enc28j60Read      spi_enc28j60.o
+    0x08006010   0x00000044   Code   RO         5944    i.enc28j60ReadBuffer  spi_enc28j60.o
+    0x08006054   0x00000054   Code   RO         5945    i.enc28j60ReadOp    spi_enc28j60.o
+    0x080060a8   0x00000034   Code   RO         5946    i.enc28j60SetBank   spi_enc28j60.o
+    0x080060dc   0x00000018   Code   RO         5947    i.enc28j60Write     spi_enc28j60.o
+    0x080060f4   0x00000040   Code   RO         5948    i.enc28j60WriteBuffer  spi_enc28j60.o
+    0x08006134   0x00000048   Code   RO         5949    i.enc28j60WriteOp   spi_enc28j60.o
+    0x0800617c   0x00000010   Code   RO         5950    i.enc28j60clkout    spi_enc28j60.o
     0x0800618c   0x00000044   Code   RO         5054    i.eth_type_is_arp_and_my_ip  microtcpip.o
     0x080061d0   0x0000004c   Code   RO         5055    i.eth_type_is_ip_and_my_ip  microtcpip.o
     0x0800621c   0x0000002c   Code   RO         5056    i.fill_ip_hdr_checksum  microtcpip.o
     0x08006248   0x00000024   Code   RO         5059    i.get_dest_mac      microtcpip.o
-    0x0800626c   0x00000038   Code   RO         5503    i.handle_get_observe  endpoints.o
-    0x080062a4   0x00000044   Code   RO         5504    i.handle_get_rd     endpoints.o
-    0x080062e8   0x00000044   Code   RO         5505    i.handle_get_well_known_core  endpoints.o
-    0x0800632c   0x0000004c   Code   RO         5506    i.handle_post_cmd   endpoints.o
+    0x0800626c   0x00000038   Code   RO         5656    i.handle_get_observe  endpoints.o
+    0x080062a4   0x00000044   Code   RO         5657    i.handle_get_rd     endpoints.o
+    0x080062e8   0x00000044   Code   RO         5658    i.handle_get_well_known_core  endpoints.o
+    0x0800632c   0x0000004c   Code   RO         5659    i.handle_post_cmd   endpoints.o
     0x08006378   0x0000003c   Code   RO         5061    i.init_ip_arp_udp_tcp  microtcpip.o
-    0x080063b4   0x00000074   Code   RO         5895    i.init_testethernet  main.o
-    0x08006428   0x0000004c   Code   RO         5896    i.init_testuart     main.o
+    0x080063b4   0x00000074   Code   RO         6048    i.init_testethernet  main.o
+    0x08006428   0x0000004c   Code   RO         6049    i.init_testuart     main.o
     0x08006474   0x00000038   Code   RO         5232    i.is_in_same_network  udp_coap_interface.o
     0x080064ac   0x00000044   Code   RO         1952    i.los_bus_spi_devcs_init  los_dev_st_spi.o
     0x080064f0   0x0000013c   Code   RO         1953    i.los_bus_spi_init  los_dev_st_spi.o
@@ -3943,40 +3943,40 @@ Memory Map of the image
     0x08006a68   0x00000444   Code   RO         1884    i.los_dev_uart_read  los_dev_st_uart.o
     0x08006eac   0x00000094   Code   RO         1885    i.los_dev_uart_start  los_dev_st_uart.o
     0x08006f40   0x0000008c   Code   RO         1886    i.los_dev_uart_write  los_dev_st_uart.o
-    0x08006fcc   0x00000038   Code   RO         6036    i.los_oceancon_sample  ocean_sample.o
+    0x08006fcc   0x00000038   Code   RO         6189    i.los_oceancon_sample  ocean_sample.o
     0x08007004   0x00000158   Code   RO         1887    i.los_receive_it    los_dev_st_uart.o
-    0x0800715c   0x0000006c   Code   RO         5897    i.main              main.o
+    0x0800715c   0x0000006c   Code   RO         6050    i.main              main.o
     0x080071c8   0x00000064   Code   RO         5063    i.make_arp_answer_from_request  microtcpip.o
     0x0800722c   0x000000b4   Code   RO         5064    i.make_arp_request  microtcpip.o
     0x080072e0   0x00000024   Code   RO         5066    i.make_eth          microtcpip.o
     0x08007304   0x000000a8   Code   RO         5072    i.make_udp_and_send_pkg  microtcpip.o
     0x080073ac   0x00000064   Code   RO         5073    i.make_udp_ip_head  microtcpip.o
     0x08007410   0x00000030   Code   RO         5075    i.make_udp_send_eth  microtcpip.o
-    0x08007440   0x00000210   Code   RO         5595    i.neul_bc95_active_network  neul_bc95.o
-    0x08007650   0x00000084   Code   RO         5599    i.neul_bc95_get_netstat  neul_bc95.o
-    0x080076d4   0x000000b0   Code   RO         5600    i.neul_bc95_get_unrmsg_count  neul_bc95.o
-    0x08007784   0x00000040   Code   RO         5601    i.neul_bc95_hex_to_str  neul_bc95.o
-    0x080077c4   0x00000094   Code   RO         5602    i.neul_bc95_hw_detect  neul_bc95.o
-    0x08007858   0x0000003c   Code   RO         5603    i.neul_bc95_hw_init  neul_bc95.o
-    0x08007894   0x00000058   Code   RO         5604    i.neul_bc95_prepare_transmit  neul_bc95.o
-    0x080078ec   0x00000088   Code   RO         5605    i.neul_bc95_query_ip  neul_bc95.o
-    0x08007974   0x000000e0   Code   RO         5606    i.neul_bc95_read_coap_msg  neul_bc95.o
-    0x08007a54   0x00000084   Code   RO         5607    i.neul_bc95_reboot  neul_bc95.o
-    0x08007ad8   0x00000192   Code   RO         5609    i.neul_bc95_send_coap_paylaod  neul_bc95.o
+    0x08007440   0x00000210   Code   RO         5748    i.neul_bc95_active_network  neul_bc95.o
+    0x08007650   0x00000084   Code   RO         5752    i.neul_bc95_get_netstat  neul_bc95.o
+    0x080076d4   0x000000b0   Code   RO         5753    i.neul_bc95_get_unrmsg_count  neul_bc95.o
+    0x08007784   0x00000040   Code   RO         5754    i.neul_bc95_hex_to_str  neul_bc95.o
+    0x080077c4   0x00000094   Code   RO         5755    i.neul_bc95_hw_detect  neul_bc95.o
+    0x08007858   0x0000003c   Code   RO         5756    i.neul_bc95_hw_init  neul_bc95.o
+    0x08007894   0x00000058   Code   RO         5757    i.neul_bc95_prepare_transmit  neul_bc95.o
+    0x080078ec   0x00000088   Code   RO         5758    i.neul_bc95_query_ip  neul_bc95.o
+    0x08007974   0x000000e0   Code   RO         5759    i.neul_bc95_read_coap_msg  neul_bc95.o
+    0x08007a54   0x00000084   Code   RO         5760    i.neul_bc95_reboot  neul_bc95.o
+    0x08007ad8   0x00000192   Code   RO         5762    i.neul_bc95_send_coap_paylaod  neul_bc95.o
     0x08007c6a   0x00000002   PAD
-    0x08007c6c   0x000000d0   Code   RO         5610    i.neul_bc95_set_auto_connect  neul_bc95.o
-    0x08007d3c   0x000000c0   Code   RO         5611    i.neul_bc95_set_band  neul_bc95.o
-    0x08007dfc   0x0000000e   Code   RO         5616    i.neul_bc95_sleep   neul_bc95.o
-    0x08007e0a   0x00000064   Code   RO         5618    i.neul_bc95_str_to_hex  neul_bc95.o
+    0x08007c6c   0x000000d0   Code   RO         5763    i.neul_bc95_set_auto_connect  neul_bc95.o
+    0x08007d3c   0x000000c0   Code   RO         5764    i.neul_bc95_set_band  neul_bc95.o
+    0x08007dfc   0x0000000e   Code   RO         5769    i.neul_bc95_sleep   neul_bc95.o
+    0x08007e0a   0x00000064   Code   RO         5771    i.neul_bc95_str_to_hex  neul_bc95.o
     0x08007e6e   0x00000002   PAD
-    0x08007e70   0x000000b4   Code   RO         6037    i.ocean_dev_control  ocean_sample.o
+    0x08007e70   0x000000b4   Code   RO         6190    i.ocean_dev_control  ocean_sample.o
     0x08007f24   0x00000024   Code   RO         4789    i.ocean_get_unread_pkg  ocean_interface.o
     0x08007f48   0x00000034   Code   RO         4790    i.ocean_init_iot_addr  ocean_interface.o
     0x08007f7c   0x00000040   Code   RO         4791    i.ocean_recv_data   ocean_interface.o
-    0x08007fbc   0x00000050   Code   RO         6038    i.ocean_report_cmd_status  ocean_sample.o
+    0x08007fbc   0x00000050   Code   RO         6191    i.ocean_report_cmd_status  ocean_sample.o
     0x0800800c   0x0000012c   Code   RO         4792    i.ocean_res_init    ocean_interface.o
     0x08008138   0x00000040   Code   RO         4793    i.ocean_send_data   ocean_interface.o
-    0x08008178   0x000000e4   Code   RO         6039    i.oceancon_sampletask  ocean_sample.o
+    0x08008178   0x000000e4   Code   RO         6192    i.oceancon_sampletask  ocean_sample.o
     0x0800825c   0x00000034   Code   RO         1165    i.osDelay           cmsis_liteos.o
     0x08008290   0x00000008   Code   RO         1563    i.osHwiDefaultHandler  los_hwi.o
     0x08008298   0x00000024   Code   RO         1564    i.osHwiInit         los_hwi.o
@@ -4026,10 +4026,10 @@ Memory Map of the image
     0x080091c8   0x0000004c   Code   RO          548    i.osTimesliceCheck  los_timeslice.o
     0x08009214   0x00000010   Code   RO          549    i.osTimesliceInit   los_timeslice.o
     0x08009224   0x00000140   Code   RO         1503    i.osTskStackInit    los_hw.o
-    0x08009364   0x00000014   Code   RO         5621    i.uart_data_flush   neul_bc95.o
-    0x08009378   0x00000044   Code   RO         5622    i.uart_data_read    neul_bc95.o
-    0x080093bc   0x00000024   Code   RO         5623    i.uart_data_write   neul_bc95.o
-    0x080093e0   0x00000136   Code   RO         5403    i.udp_client        coap_liteos_port.o
+    0x08009364   0x00000014   Code   RO         5774    i.uart_data_flush   neul_bc95.o
+    0x08009378   0x00000044   Code   RO         5775    i.uart_data_read    neul_bc95.o
+    0x080093bc   0x00000024   Code   RO         5776    i.uart_data_write   neul_bc95.o
+    0x080093e0   0x00000136   Code   RO         5556    i.udp_client        coap_liteos_port.o
     0x08009516   0x00000002   PAD
     0x08009518   0x00000038   Code   RO         5233    i.udp_create_socket  udp_coap_interface.o
     0x08009550   0x00000080   Code   RO         5234    i.udp_init_ring_buf  udp_coap_interface.o
@@ -4047,16 +4047,16 @@ Memory Map of the image
     0x080099ec   0x00000009   Data   RO         1631    .constdata          los_bsp_adapter.o
     0x080099f5   0x00000003   PAD
     0x080099f8   0x00000048   Data   RO         2164    .constdata          system_stm32l4xx.o
-    0x08009a40   0x00000078   Data   RO         5508    .constdata          endpoints.o
-    0x08009ab8   0x00000081   Data   RO         6431    .constdata          mc_w.l(ctype_o.o)
+    0x08009a40   0x00000078   Data   RO         5661    .constdata          endpoints.o
+    0x08009ab8   0x00000081   Data   RO         6633    .constdata          mc_w.l(ctype_o.o)
     0x08009b39   0x00000003   PAD
-    0x08009b3c   0x00000004   Data   RO         6432    .constdata          mc_w.l(ctype_o.o)
-    0x08009b40   0x0000002a   Data   RO         5509    .conststring        endpoints.o
+    0x08009b3c   0x00000004   Data   RO         6634    .constdata          mc_w.l(ctype_o.o)
+    0x08009b40   0x0000002a   Data   RO         5662    .conststring        endpoints.o
     0x08009b6a   0x00000002   PAD
-    0x08009b6c   0x00000020   Data   RO         6466    Region$$Table       anon$$obj.o
+    0x08009b6c   0x00000020   Data   RO         6668    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000ddc8, Max: 0x00028000, ABSOLUTE, COMPRESSED[0x000000ac])
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000ddc8, Max: 0x00028000, ABSOLUTE, COMPRESSED[0x000000b0])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4083,16 +4083,16 @@ Memory Map of the image
     0x20000100   0x00000026   Data   RW         5076    .data               microtcpip.o
     0x20000126   0x00000002   PAD
     0x20000128   0x0000001c   Data   RW         5241    .data               udp_coap_interface.o
-    0x20000144   0x00000034   Data   RW         5405    .data               coap_liteos_port.o
-    0x20000178   0x00000002   Data   RW         5510    .data               endpoints.o
+    0x20000144   0x00000034   Data   RW         5558    .data               coap_liteos_port.o
+    0x20000178   0x00000002   Data   RW         5663    .data               endpoints.o
     0x2000017a   0x00000002   PAD
-    0x2000017c   0x00000048   Data   RW         5625    .data               neul_bc95.o
-    0x200001c4   0x00000008   Data   RW         5799    .data               spi_enc28j60.o
-    0x200001cc   0x00000010   Data   RW         5899    .data               main.o
-    0x200001dc   0x0000002b   Data   RW         6041    .data               ocean_sample.o
+    0x2000017c   0x00000048   Data   RW         5778    .data               neul_bc95.o
+    0x200001c4   0x00000008   Data   RW         5952    .data               spi_enc28j60.o
+    0x200001cc   0x00000010   Data   RW         6052    .data               main.o
+    0x200001dc   0x0000002b   Data   RW         6194    .data               ocean_sample.o
     0x20000207   0x00000001   PAD
-    0x20000208   0x00000004   Data   RW         6085    .data               mc_w.l(rand.o)
-    0x2000020c   0x00000004   Data   RW         6402    .data               mc_w.l(errno.o)
+    0x20000208   0x00000004   Data   RW         6287    .data               mc_w.l(rand.o)
+    0x2000020c   0x00000004   Data   RW         6604    .data               mc_w.l(errno.o)
     0x20000210   0x00000400   Data   RW         1569    .vector.bss         los_hwi.o
     0x20000610   0x000000d0   Zero   RW          125    .bss                los_swtmr.o
     0x200006e0   0x00008000   Zero   RW          918    .bss                los_memory.o
@@ -4104,12 +4104,12 @@ Memory Map of the image
     0x2000ae00   0x00000100   Zero   RW         4931    .bss                ocean_porting.o
     0x2000af00   0x00000044   Zero   RW         5013    .bss                agent_client_interface.o
     0x2000af44   0x00000848   Zero   RW         5240    .bss                udp_coap_interface.o
-    0x2000b78c   0x00000a00   Zero   RW         5404    .bss                coap_liteos_port.o
-    0x2000c18c   0x000005dc   Zero   RW         5507    .bss                endpoints.o
-    0x2000c768   0x00000c78   Zero   RW         5624    .bss                neul_bc95.o
-    0x2000d3e0   0x000003e8   Zero   RW         5898    .bss                main.o
-    0x2000d7c8   0x00000200   Zero   RW         6040    .bss                ocean_sample.o
-    0x2000d9c8   0x00000400   Zero   RW         5881    STACK               startup_stm32l452xx.o
+    0x2000b78c   0x00000a00   Zero   RW         5557    .bss                coap_liteos_port.o
+    0x2000c18c   0x000005dc   Zero   RW         5660    .bss                endpoints.o
+    0x2000c768   0x00000c78   Zero   RW         5777    .bss                neul_bc95.o
+    0x2000d3e0   0x000003e8   Zero   RW         6051    .bss                main.o
+    0x2000d7c8   0x00000200   Zero   RW         6193    .bss                ocean_sample.o
+    0x2000d9c8   0x00000400   Zero   RW         6034    STACK               startup_stm32l452xx.o
 
 
 ==============================================================================
@@ -4155,7 +4155,7 @@ Image component sizes
       2728        466          0         72       3192      15724   neul_bc95.o
        516         74          0         15       1024      11281   ocean_interface.o
        134         18          0          0        256      10934   ocean_porting.o
-       544         52          0         43        512       4466   ocean_sample.o
+       544         52          0         43        512       8762   ocean_sample.o
       1124         38          0          8          0       8743   spi_enc28j60.o
         36          8        404          0       1024        912   startup_stm32l452xx.o
         90         14          0          4          0       4011   stm32l4xx_hal.o
@@ -4169,10 +4169,10 @@ Image component sizes
       1968         42          0          0          0       8391   stm32l4xx_hal_uart.o
         46          0          0          0          0       5955   stm32l4xx_it.o
         80         12         72          4          0       1457   system_stm32l4xx.o
-       944        102          0         28       2120       8076   udp_coap_interface.o
+       944        102          0         28       2120      15756   udp_coap_interface.o
 
     ----------------------------------------------------------------------
-     33100       2250        684       1544      55224    1083957   Object Totals
+     33100       2250        684       1544      55224    1095933   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         40          0          5          6          0          0   (incl. Padding)
 
@@ -4245,15 +4245,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     39000       2390        820       1552      55224    1058681   Grand Totals
-     39000       2390        820        172      55224    1058681   ELF Image Totals (compressed)
-     39000       2390        820        172          0          0   ROM Totals
+     39000       2390        820       1552      55224    1070657   Grand Totals
+     39000       2390        820        176      55224    1070657   ELF Image Totals (compressed)
+     39000       2390        820        176          0          0   ROM Totals
 
 ==============================================================================
 
     Total RO  Size (Code + RO Data)                39820 (  38.89kB)
     Total RW  Size (RW Data + ZI Data)             56776 (  55.45kB)
-    Total ROM Size (Code + RO Data + RW Data)      39992 (  39.05kB)
+    Total ROM Size (Code + RO Data + RW Data)      39996 (  39.06kB)
 
 ==============================================================================
 

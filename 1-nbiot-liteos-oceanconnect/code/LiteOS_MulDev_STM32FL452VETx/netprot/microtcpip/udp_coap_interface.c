@@ -19,8 +19,8 @@ static unsigned int g_r_len = 0;
 static unsigned char *g_r_pos = NULL;
 
 extern unsigned char g_macaddr[6];
-static unsigned char myip[4] = {192,168,3,100};
-static unsigned char gateway[4] = {192,168,3,1};
+static unsigned char myip[4] = {192,168,1,100};
+static unsigned char gateway[4] = {192,168,1,1};
 static unsigned char mask[4] = {255, 255, 255, 0};
 
 #define UDP_DATA_BUF_CNT 4

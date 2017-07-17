@@ -15,8 +15,8 @@ int get_cmd = 0;
 int uset_value = 0;
 int scroll = 0;
 
-unsigned char g_local_ip[4] = {192, 168, 3, 100};
-unsigned char g_local_gw[4] = {192, 168, 3, 1};
+unsigned char g_local_ip[4] = {192, 168, 1, 100};
+unsigned char g_local_gw[4] = {192, 168, 1, 1};
 unsigned char g_local_msk[4] = {255, 255, 255, 0};
 unsigned char g_macaddr[6] = {0x54,0x55,0x58,0x10,0x00,0x24};
 unsigned char g_devsn[] = "test00000001";
