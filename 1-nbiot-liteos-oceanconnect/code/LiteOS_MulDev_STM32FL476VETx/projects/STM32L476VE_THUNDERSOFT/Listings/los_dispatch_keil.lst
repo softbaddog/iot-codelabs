@@ -239,11 +239,10 @@ ARM Macro Assembler    Page 4
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\los_dispatch_keil.d -o.\objects\los_dispatch_keil.o -
-IE:\newstm32l452\LiteOS_MulDev_STM32FL476VETx\projects\STM32L476VE_THUNDERSOFT\
-RTE -IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.3.0\Device\Include -IC:\Keil_v5\
-ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSIO
-N SETA 518" --predefine="STM32L476xx SETA 1" --list=.\listings\los_dispatch_kei
-l.lst ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
+I.\RTE\_HuaweiLiteOS -IE:\MDK5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include
+ -IE:\MDK5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="__UVI
+SION_VERSION SETA 523" --predefine="STM32L476xx SETA 1" --list=.\listings\los_d
+ispatch_keil.lst ..\..\kernel\cpu\arm\cortex-m4\los_dispatch_keil.s
 
 
 

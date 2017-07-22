@@ -719,11 +719,10 @@ erwork --depend=.\objects\startup_stm32l476xx.d -o.\objects\startup_stm32l476xx
 ARM Macro Assembler    Page 12 
 
 
-.o -IE:\newstm32l452\LiteOS_MulDev_STM32FL476VETx\projects\STM32L476VE_THUNDERS
-OFT\RTE -IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.3.0\Device\Include -IC:\Keil
-_v5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VE
-RSION SETA 518" --predefine="STM32L476xx SETA 1" --list=.\listings\startup_stm3
-2l476xx.lst ..\..\BSP\STM32L476VETx\MDK-ARM\startup_stm32l476xx.s
+.o -I.\RTE\_HuaweiLiteOS -IE:\MDK5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Inc
+lude -IE:\MDK5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="_
+_UVISION_VERSION SETA 523" --predefine="STM32L476xx SETA 1" --list=.\listings\s
+tartup_stm32l476xx.lst ..\..\BSP\STM32L476VETx\MDK-ARM\startup_stm32l476xx.s
 
 
 
