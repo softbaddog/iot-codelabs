@@ -1,0 +1,9 @@
+#ifndef _UDP_COAP_INTERFACE_H
+#define _UDP_COAP_INTERFACE_H
+
+int udp_send_data(int socket, unsigned char *buf, unsigned short sndlen);
+int udp_read_data(int socket, unsigned char *buf, unsigned short maxrlen);
+
+
+#endif /* _UDP_COAP_INTERFACE_H */
+
