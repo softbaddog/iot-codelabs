@@ -18,8 +18,17 @@
 #include "los_dev_st_spi.h"
 #include "udp_coap_interface.h"
 
+#include "uart_test.h"
+#include "th_sensor.h"
+#include "gpio_handle.h"
+#include "delay.h"
+
 extern void LOS_EvbSetup(void);
 
+static char debug_uart[500];
+static char nbiot_uart[500];
+double HumRet=0;
+double TemRet=0;
 
 void SystemClock_Config(void);
 void _Error_Handler(char * file, int line);
@@ -163,15 +172,15 @@ void init_testuart(void * pvParameters)
     {
         while(1);
     }
-	while(1)
-	{
+		while(1)
+		{
         //los_dev_uart_write(LOS_STM32L476_UART3, "123\n", 4, 100);
         //len = uart_data_read(tb1, 500, 0);
         len = los_dev_uart_read(LOS_STM32L476_UART3, tb1, 4, 5000); 
         if (len > 0)
             los_dev_uart_write(LOS_STM32L476_UART3, tb1, len, 100);
-		osDelay(10);
-	}
+				osDelay(10);
+		}
 }
 unsigned char testlip[4] = {192, 168, 206, 41};
 unsigned char testlgw[4] = {192, 168, 206, 1};
@@ -196,8 +205,7 @@ void init_testethernet(void * pvParameters)
     osDelay(1000);
 	while(1)
 	{
-        //len = uart_data_read(tb1, 500, 0);
-        len = udp_send_data(ret, "12345", 5);
+    len = udp_send_data(ret, "12345", 5);
 		osDelay(1000);
 	}
 }
@@ -209,60 +217,82 @@ Input       : None
 Output      : None
 Return      : None
  *****************************************************************************/
+extern void KEY_init();
 LITE_OS_SEC_TEXT_INIT
 int main(void)
 {
 	UINT32 uwRet;
-	osThreadDef_t thread_def;
-    /*
-        add you hardware init code here
-        for example flash, i2c , system clock ....
-     */
-    /*Init LiteOS kernel */
-    uwRet = LOS_KernelInit();
-    if (uwRet != LOS_OK) {
-        return LOS_NOK; 
-    }
-    //HAL_init();....
-    HAL_Init();
+	
+	/*声明6个线程，分别用于串口输出，NB-IoT测试，温湿度传感器，LED灯，气压传感器以及六轴传感器*/
+	osThreadDef_t debug_thread;
+	osThreadDef_t nbiot_thread;
+	osThreadDef_t thsensor_thread;
+	osThreadDef_t led_thread;
+	
+	UINT32 iRet;
+	
+  /*初始化LiteOS的内核*/
+  uwRet = LOS_KernelInit();
+  if (uwRet != LOS_OK)
+	{
+      return LOS_NOK; 
+  }
 
-    /* Configure the system clock to 216 MHz */
-    SystemClock_Config();
+  HAL_Init();
+
+  /*配置系统时钟*/
+  SystemClock_Config();
     
-    /* Enable LiteOS system tick interrupt */
-    LOS_EnableTick();
+  /*使能LiteOS系统计时器中断*/
+  LOS_EnableTick();
+ 
+	/*初始化调试串口，在系统启动后会通过串口打印NB-IoT模块的IMEI号和传感器的原始数据*/
+	iRet = los_dev_uart_init(LOS_STM32L476_UART3, 9600, debug_uart, 500);
+	if( iRet!=0 )
+	{
+		osDelay(1000);
+	}
+	
+	/*初始化NB-IoT串口，在系统启动后通过该串口对NB-IoT进行调试*/
+	iRet = los_dev_uart_init(LOS_STM32L476_UART2, 9600, nbiot_uart, 500);
+	if( iRet!=0 )
+	{
+		osDelay(1000);
+	}
+	
+	/*初始化硬件I2C，该I2C用于获取温湿度传感器的数据*/
+	th_iic_Init();
+	
+	/*初始化按键，该按键用于控制LED灯的状态*/
+	KEY_init();
+	
+	/*设置线程*/
+	debug_thread.name = "Test_UART";
+	debug_thread.stacksize = 2048;
+	debug_thread.tpriority = osPriorityLow;
+	debug_thread.pthread = (os_pthread)FT_UART_Send;                   //串口测试函数，debug_thread线程执行该函数
+	osThreadCreate(&debug_thread, NULL);
+	
+	nbiot_thread.name = "Test_NB";
+	nbiot_thread.stacksize = 2048;
+	nbiot_thread.tpriority = osPriorityLow;
+	nbiot_thread.pthread = (os_pthread)NB_TEST_Uart;                   //NB-IoT测试函数，nbiot_thread线程执行该函数
+	osThreadCreate(&nbiot_thread, NULL);
+  
+	thsensor_thread.name = "TH_Sensor";
+	thsensor_thread.stacksize = 2048;
+	thsensor_thread.tpriority = osPriorityLow;
+	thsensor_thread.pthread = (os_pthread)SHT20_test;                  //温湿度测试函数
+	osThreadCreate(&thsensor_thread, NULL);
+	
+	led_thread.name = "Test_LED";
+	led_thread.stacksize = 2048;
+	led_thread.tpriority = osPriorityLow;
+	led_thread.pthread = (os_pthread)led_test;                         //LED灯闪烁函数
+	osThreadCreate(&led_thread, NULL);
 
-    /*
-        Notice: add your code here
-        here you can create task for your function 
-        do some hw init that need after systemtick init
-     */
-    LOS_EvbSetup();//init the device on the dev baord
-    
-    
-    //LOS_Demo_Entry();
 
-    //LOS_Inspect_Entry();
-
-    //LOS_BoadExampleEntry();
-
-    thread_def.name = "Test";
-	thread_def.stacksize = 1900;
-	thread_def.tpriority = osPriorityLow;
-	thread_def.pthread = (os_pthread)init_testuart;
-	//osThreadCreate(&thread_def, NULL); 
-
-    thread_def.name = "Test";
-	thread_def.stacksize = 1900;
-	thread_def.tpriority = osPriorityLow;
-	thread_def.pthread = (os_pthread)init_testethernet;
-	//osThreadCreate(&thread_def, NULL);
-    
-    los_oceancon_sample();
-    
-
-    /* Kernel start to run */
-    LOS_Start();
-    for (;;);
-    /* Replace the dots (...) with your own code. */
+  /* Kernel start to run */
+  LOS_Start();
+  for (;;);
 }

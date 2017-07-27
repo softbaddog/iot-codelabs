@@ -10,12 +10,12 @@
       <TargetName>HuaweiLiteOS</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32L476VETx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32L4xx_DFP.1.4.0</PackID>
+          <PackID>Keil.STM32L4xx_DFP.1.3.0</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IROM(0x08000000,0x00080000) IRAM(0x20000000,0x00018000) IRAM2(0x10000000,0x00008000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -51,7 +51,7 @@
           <OutputName>HuaweiLiteOS</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32L476xx,LOS_STM32L476VE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\example\include;..\..\kernel\base\include;..\..\kernel\include;..\..\kernel\link\keil;..\..\kernel\config;..\..\kernel\cpu\arm\cortex-m3;..\..\kernel\cmsis;..\..\platform\STM32L476VE_THUNDERSOFT;..\..\netprot\microcoap;..\..\netprot\microtcpip;..\..\peripheral;..\..\oceaninterface;..\..\oceaninterface\agenttiny;..\..\oceaninterface\nb;..\..\user;..\..\BSP\STM32L476VETx\Inc;..\..\BSP\STM32L476VETx\Drivers\STM32L4xx_HAL_Driver\Inc;..\..\BSP\STM32L476VETx\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy;..\..\BSP\STM32L476VETx\Drivers\CMSIS\Device\ST\STM32L4xx\Include;..\..\BSP\STM32L476VETx\Drivers\CMSIS\Include</IncludePath>
+              <IncludePath>..\..\example\include;..\..\kernel\base\include;..\..\kernel\include;..\..\kernel\link\keil;..\..\kernel\config;..\..\kernel\cpu\arm\cortex-m3;..\..\kernel\cmsis;..\..\platform\STM32L476VE_THUNDERSOFT;..\..\netprot\microcoap;..\..\netprot\microtcpip;..\..\peripheral;..\..\oceaninterface;..\..\oceaninterface\agenttiny;..\..\oceaninterface\nb;..\..\user;..\..\BSP\STM32L476VETx\Inc;..\..\BSP\STM32L476VETx\Drivers\STM32L4xx_HAL_Driver\Inc;..\..\BSP\STM32L476VETx\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy;..\..\BSP\STM32L476VETx\Drivers\CMSIS\Device\ST\STM32L4xx\Include;..\..\BSP\STM32L476VETx\Drivers\CMSIS\Include;..\..\sensors;..\..\sensors</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -812,6 +812,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>sensors</GroupName>
+          <Files>
+            <File>
+              <FileName>th_sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\sensors\th_sensor.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_handle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\sensors\gpio_handle.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>user</GroupName>
           <Files>
             <File>
@@ -824,16 +839,25 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\ocean_sample.c</FilePath>
             </File>
+            <File>
+              <FileName>uart_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\uart_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\key_test.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
     </Target>
   </Targets>
-
-  <RTE>
-    <apis/>
-    <components/>
-    <files/>
-  </RTE>
 
 </Project>
