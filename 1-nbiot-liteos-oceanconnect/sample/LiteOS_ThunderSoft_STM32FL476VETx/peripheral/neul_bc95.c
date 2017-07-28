@@ -1143,6 +1143,41 @@ int neul_bc95_set_auto_connect(int flag)
     return 0;
 }
 
+int neul_bc95_get_auto_connect()
+{
+    int ret = 0;
+    char *str = NULL;
+    char *p = "AT+NCONFIG?\r";
+    char *p1 = "AUTOCONNECT,TRUE";
+    char *p2 = "AUTOCONNECT,FALSE";
+
+    ret = neul_dev.ops->dev_write(p, strlen(p), 0);
+    
+    memset(neul_dev.rbuf, 0, 32);
+    ret = neul_dev.ops->dev_read(neul_dev.rbuf, 106, 0, 500);
+    if (ret <= 0)
+    {
+        //read bc95 read set return value info failed
+        return -1;
+    }
+    str = strstr(neul_dev.rbuf,"OK");
+    if (!str)
+    {
+        return -1;
+    }
+    str = strstr(neul_dev.rbuf,p1);
+    if (str)
+    {
+        return 1;
+    } 
+    str = strstr(neul_dev.rbuf,p2);
+    if (str)
+    {
+        return 2;
+    }
+    return -1;
+}
+
 /* ============================================================
 func name   :  neul_bc95_hw_init
 discription :  init neul bc95 device 
@@ -1162,7 +1197,15 @@ int neul_bc95_hw_init(void)
     {
         return ret;
     }
-
+    ret = neul_bc95_get_auto_connect();
+    if (ret < 0)
+    {
+        return ret;
+    }
+    if (ret == 1)
+    {
+        return 0;
+    }
     neul_bc95_prepare_transmit();
     //not auto connect
     neul_bc95_set_auto_connect(0);

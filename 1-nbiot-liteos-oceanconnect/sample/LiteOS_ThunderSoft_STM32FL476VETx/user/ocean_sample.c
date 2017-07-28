@@ -8,8 +8,8 @@
 
 #include "ocean_interface.h"
 
-//#define USE_NB_BC95 1
-#define USE_AGENTTINY 1
+#define USE_NB_BC95 1
+//#define USE_AGENTTINY 1
 
 int get_cmd = 0;
 int uset_value = 0;
@@ -194,6 +194,7 @@ void oceancon_sampletask(void * pvParameters)
             {
                 ocean_dev_control(test_rbuf, n);
             }
+            rmsgcnt--;
         }
         osDelay(1000);
     }
