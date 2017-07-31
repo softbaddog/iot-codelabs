@@ -8,8 +8,8 @@
 
 #include "ocean_interface.h"
 
-#define USE_NB_BC95 1
-//#define USE_AGENTTINY 1
+//#define USE_NB_BC95 1
+#define USE_AGENTTINY 1
 
 int get_cmd = 0;
 int uset_value = 0;
@@ -129,7 +129,7 @@ void oceancon_sampletask(void * pvParameters)
 {
 	unsigned char data[8] = {0};
 #ifdef USE_AGENTTINY  
-    unsigned char iotaddress[4] = {112,93,129,154};
+    unsigned char iotaddress[4] = {218,4,33,72};
     char *iotport = "5683";
 #endif
 	//int leds;

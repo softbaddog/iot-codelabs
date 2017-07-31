@@ -290,7 +290,8 @@ int main(void)
 	led_thread.tpriority = osPriorityLow;
 	led_thread.pthread = (os_pthread)led_test;                         //LEDµÆÉÁË¸º¯Êý
 	osThreadCreate(&led_thread, NULL);
-
+	
+	los_oceancon_sample();
 
   /* Kernel start to run */
   LOS_Start();
