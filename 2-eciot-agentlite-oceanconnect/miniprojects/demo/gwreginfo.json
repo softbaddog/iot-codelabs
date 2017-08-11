@@ -1,0 +1,10 @@
+{
+"esnfilepath":"./esn.ini",
+"platformaddr":"112.93.129.154",
+"platformport":8943,
+"manufactureid":"Huawei",
+"devicetype":"Gateway",
+"model":"AR502CBGS-L",
+"protocoltype":"HuaweiM2M",
+"loglevel":255
+}
