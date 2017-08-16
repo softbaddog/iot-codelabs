@@ -1,116 +1,10 @@
 #include <stdio.h>  
 #include <stdlib.h>  
-#include <unistd.h>  
-#include <sys/types.h>  
-#include <sys/stat.h>  
-#include <fcntl.h>  
-#include <termios.h>  
-#include <errno.h>  
 
 #include "demo.h"
 #include "iota_device.h"
 #include "hw_json.h"
 #include "string.h"
-
- 
-#define FALSE -1  
-#define TRUE 0  
-  
-int speed_arr[] = { B38400, B19200, B9600, B4800, B2400, B1200, B300,B38400, B19200, B9600, B4800, B2400, B1200, B300, };  
-int name_arr[] = {38400,  19200,  9600,  4800,  2400,  1200,  300, 38400, 19200,  9600, 4800, 2400, 1200,  300, };  
-
-void set_speed(int fd, int speed){  
-  int   i;   
-  int   status;   
-  struct termios   Opt;  
-  tcgetattr(fd, &Opt);   
-  for ( i= 0;  i < sizeof(speed_arr) / sizeof(int);  i++) {   
-    if  (speed == name_arr[i]) {       
-      tcflush(fd, TCIOFLUSH);       
-      cfsetispeed(&Opt, speed_arr[i]);    
-      cfsetospeed(&Opt, speed_arr[i]);     
-      status = tcsetattr(fd, TCSANOW, &Opt);    
-      if  (status != 0) {          
-        perror("tcsetattr fd1");    
-        return;       
-      }      
-      tcflush(fd,TCIOFLUSH);     
-    }    
-  }  
-}  
-  
-int set_Parity(int fd,int databits,int stopbits,int parity)  
-{   
-    struct termios options;   
-    if  ( tcgetattr( fd,&options)  !=  0) {   
-        perror("SetupSerial 1");       
-        return(FALSE);    
-    }  
-    options.c_cflag &= ~CSIZE;   
-    switch (databits)   
-    {     
-    case 7:       
-        options.c_cflag |= CS7;   
-        break;  
-    case 8:       
-        options.c_cflag |= CS8;  
-        break;     
-    default:      
-        fprintf(stderr,"Unsupported data size\n"); return (FALSE);    
-    }  
-    switch (parity)   
-    {     
-        case 'n':  
-        case 'N':      
-            options.c_cflag &= ~PARENB;   /* Clear parity enable */  
-            options.c_iflag &= ~INPCK;     /* Enable parity checking */   
-            break;    
-        case 'o':     
-        case 'O':       
-            options.c_cflag |= (PARODD | PARENB);   
-            options.c_iflag |= INPCK;             /* Disnable parity checking */   
-            break;    
-        case 'e':    
-        case 'E':     
-            options.c_cflag |= PARENB;     /* Enable parity */      
-            options.c_cflag &= ~PARODD;      
-            options.c_iflag |= INPCK;       /* Disnable parity checking */  
-            break;  
-        case 'S':   
-        case 's':  /*as no parity*/     
-            options.c_cflag &= ~PARENB;  
-            options.c_cflag &= ~CSTOPB;break;    
-        default:     
-            fprintf(stderr,"Unsupported parity\n");      
-            return (FALSE);    
-        }    
-      
-    switch (stopbits)  
-    {     
-        case 1:      
-            options.c_cflag &= ~CSTOPB;    
-            break;    
-        case 2:      
-            options.c_cflag |= CSTOPB;    
-           break;  
-        default:      
-             fprintf(stderr,"Unsupported stop bits\n");    
-             return (FALSE);   
-    }   
-    /* Set input parity option */   
-    if (parity != 'n')     
-        options.c_iflag |= INPCK;   
-    tcflush(fd,TCIFLUSH);  
-    options.c_cc[VTIME] = 150;   
-    options.c_cc[VMIN] = 0; /* Update the options and do it NOW */  
-    if (tcsetattr(fd,TCSANOW,&options) != 0)     
-    {   
-        perror("SetupSerial 3");     
-        return (FALSE);    
-    }   
-    return (TRUE);    
-}  
-
 
 ST_GATEWAY_INFO g_stGateWayInfo={0};
 
@@ -118,16 +12,18 @@ HW_UINT g_uiLoginFlg = HW_FALSE;
 HW_UINT g_uiLogLevel = 0;
 HW_UINT g_uiCookie= 1;
 HW_CHAR g_cSensorId[256] = {0};
-HW_INT g_iCurLedIdx = 0;
+HW_UINT g_uiCurLedIdx = 0;
 HW_BOOL g_bRollStatus = HW_FALSE;
-
 
 HW_INT main()
 {
-
+    HW_CHAR *pcJsonStr;
     HW_CHAR acBuf[BUFF_MAX_LEN];
+	
     IOTA_Init(CONFIG_PATH, HW_NULL);
+	
     HW_LOG_INF("IOTA_Init");
+	
     DEVICE_InitGateWayInfo();
     DEVICE_ReadConf();
     if (HW_NULL == g_stGateWayInfo.pcDeviceID)
@@ -176,63 +72,19 @@ HW_INT main()
     HW_BroadCastReg(IOTA_TOPIC_CMD_UNBIND_RECEIVE, Gateway_UnbindRecvtHandler);
     HW_BroadCastReg(IOTA_TOPIC_HUB_RMVDEV_RSP, Device_RemovResultHandler); 
     HW_BroadCastReg(IOTA_TOPIC_DEVUPDATE_RSP, Device_DevUpDateHandler);     
-    
-    // 延时时间长一点，防止还在做添加删除操作时，IOTA_Logout()已经执行了
-    //HW_Sleep(1000);
-    //IOTA_Logout();
-    //HW_LOG_INF("IOTA_Logout");
-    //HW_Sleep(5);
-    //IOTA_Destroy();
-    //HW_LOG_INF("IOTA_Destroy");
 
-	HW_LOG_INF("This program updates last time at %s   %s\n",__TIME__,__DATE__);  
-    HW_LOG_INF("STDIO COM1\n");  
-    int fd;  
-    fd = open("/dev/ttyRS232",O_RDWR);  
-    if(fd == -1)  
-    {  
-        perror("serialport error\n");  
-    }  
-    else  
-    {  
-        HW_LOG_INF("open ");  
-        HW_LOG_INF("%s",ttyname(fd));  
-        HW_LOG_INF(" succesfully\n");  
-    }  
-  
-    set_speed(fd,115200);  
-    if (set_Parity(fd,8,1,'N') == FALSE)  {  
-        HW_LOG_INF("Set Parity Error\n");  
-        exit (0);  
-    }  
-    char buf[] = "fe55aa07bc010203040506073d";  
-    write(fd,&buf,26);  
-    char buff[512];   
-    int nread;    
-
-	
-    HW_CHAR *pcJsonStr;
     while(1)  
     {  
-
-		if(strlen(g_cSensorId)>0)
+		if(g_uiLoginFlg && strlen(g_cSensorId)>0)
 		{
 			Device_ReportIdx(&pcJsonStr);
 			Device_ServiceDataReport(g_cSensorId, IOTA_SERVICE_LEDCHAR, pcJsonStr);
-			HW_LOG_INF(" --Device_ServiceDataReport--:%s, value:%d", g_cSensorId, g_iCurLedIdx);
+			HW_LOG_INF(" --Device_ServiceDataReport--:%s, value:%d", g_cSensorId, g_uiCurLedIdx);
 		}
 
-		HW_Sleep(5);
-#if 0
-        if((nread = read(fd, buff, 512))>0)  
-        {  
-            HW_LOG_INF("\nLen: %d\n",nread);  
-            buff[nread+1] = '\0';  
-            HW_LOG_INF("%s",buff);  
-        }  
-#endif
+		HW_Sleep(1);
     }  
-    close(fd);  
+
     return HW_OK;  
     
 }
@@ -813,9 +665,9 @@ HW_INT Device_ReportIdx( HW_CHAR **pcJsonStr)
     json = HW_JsonGetJson(hJsonObj); 
 	if (g_bRollStatus)
 	{
-		g_iCurLedIdx = (g_iCurLedIdx+1)%100;
+		g_uiCurLedIdx = (g_uiCurLedIdx+1)%100;
 	}
-    HW_JsonAddUint(json, (HW_CHAR*)"curledidx", (HW_INT)g_iCurLedIdx);
+    HW_JsonAddUint(json, (HW_CHAR*)"curledidx", (HW_INT)g_uiCurLedIdx);
     *pcJsonStr = HW_JsonEncodeStr(hJsonObj);
     
     return HW_OK;
@@ -876,6 +728,9 @@ HW_INT Device_ServiceCommandReceiveHandler(HW_UINT uiCookie, HW_MSG pstMsg)
     HW_CHAR *pcServiceId;
     HW_CHAR *pcMethod;
     HW_BYTES *pbstrContent;
+	HW_JSONOBJ jsonObj;
+	HW_JSON jsonRoot;
+	HW_CHAR pcTemp[256] = {0};
 
     pcDevId = HW_MsgGetStr(pstMsg,EN_IOTA_DATATRANS_IE_DEVICEID);
     pcReqId = HW_MsgGetStr(pstMsg,EN_IOTA_DATATRANS_IE_REQUESTID);
@@ -895,18 +750,23 @@ HW_INT Device_ServiceCommandReceiveHandler(HW_UINT uiCookie, HW_MSG pstMsg)
     }
 
 	HW_LOG_INF(" ---Device_ServiceCommandReceiveHandler--- pcDevId=%s, pcReqId=%s, pcServiceId=%s, pcMethod=%s, pbstrContent=%s.",
-		pcDevId, pcReqId, pcServiceId, pcMethod, pbstrContent);
+		pcDevId, pcReqId, pcServiceId, pcMethod, pbstrContent->pcByte);
+
+	jsonObj = HW_JsonDecodeCreate(pbstrContent->pcByte, HW_TRUE);
+	jsonRoot = HW_JsonGetJson(jsonObj);
 
 	//if (0 == strncmp(IOTA_SERVICE_LEDCHAR, pcServiceId, strlen(IOTA_SERVICE_LEDCHAR)))
 	if (0 == strncmp("SET_LED_CHAR_IDX", pcMethod, strlen(pcMethod)))
 	{
-			g_iCurLedIdx = HW_MsgGetUint(pstMsg, EN_IOTA_DATATRANS_IE_CMDCONTENT, 0);
-			HW_LOG_INF(" ---g_iCurLedIdx be seted %d ---.", g_iCurLedIdx);
+		strcpy(pcTemp,HW_JsonGetStr(jsonRoot, "ledcharidx"));
+		g_uiCurLedIdx = atoi(pcTemp);
+		HW_LOG_INF(" ---g_uiCurLedIdx be seted %d ---.", g_uiCurLedIdx);
 	}
 	
 	if (0 == strncmp("SET_LED_CHAR_ROLL", pcMethod, strlen(pcMethod)))
 	{
-		if (HW_MsgGetUint(pstMsg, EN_IOTA_DATATRANS_IE_CMDCONTENT, 0) > HW_FALSE)
+		strcpy(pcTemp, HW_JsonGetStr(jsonRoot, "ledcharroll"));
+		if (atoi(pcTemp) > HW_FALSE)
 		{
 			g_bRollStatus = HW_TRUE;
 			HW_LOG_INF(" ---g_bRollStatus be seted success ---.");
@@ -915,9 +775,12 @@ HW_INT Device_ServiceCommandReceiveHandler(HW_UINT uiCookie, HW_MSG pstMsg)
 
     if (0 == strncmp(METHOD_REMOVE_GATEWAY,pcMethod,strlen(METHOD_REMOVE_GATEWAY)))
     {
+    	g_uiLoginFlg = HW_FALSE;
         IOTA_RmvGateWay();
 		HW_LOG_INF(" ---IOTA_RmvGateWay success ---.");
     }
+
+	HW_JsonObjDelete(&jsonObj);
    
     return HW_OK;
 }
