@@ -1,0 +1,56 @@
+# 实现直连传感器数据采集
+
+传感数据采集属于通用的嵌入式开发范畴，并非我们要讨论的重点，这里我们提供Demo以虚拟数据模拟上报到OceanConnect，并接收控制指令。
+
+> 后续创达NB-IoT开发板会配套提供示例代码包，届时将基于示例代码刷新本节内容。
+
+接上一节，在PC机上用Keil打开做好的Demo工程LiteOS_ThunderSoft_STM32FL476VETx，阅读代码直至定位到模拟数据上报到OceanConnect的代码：
+
+1. user/main.c中是系统的入口函数main(void)。
+2. 经过一系列的系统初始化，创建了两个测试任务init_testuart和init_testethernet，可以略过不看。
+3. 接下来进入关键代码入口los_oceancon_sample（）。
+4. los_oceancon_sample函数实现在user/ocean_sample.c文件中，能够看到其创建了新的任务，入口为oceancon_sampletask。
+5. 打开oceancon_sampletask函数，可以看到一些"#ifdef USE_AGENTTINY"、"#ifdef USE_NB_BC95"的分支，在文件首能看到这两个宏的定义语句，为二选一的状态。如果本地NB网络已经可用，可以选择使用NB_BC95，否则请使用AGENTTINY分支。
+
+6. 接下来，我们能够看到while(1)循环里的关键收/发消息代码（消息本身全部都是自定义的，可随意修改），这里可以找到南设备与OceanConnect通信的关键接口：ocean_recv_data和ocean_send_data。
+
+```c
+while(1){
+
+	data[0] = 0x4c;
+	data[1] = 0x45;
+	data[2] = 0x44;//data[0~2] header
+	data[3] = 0x0d;// data report 
+	data[4] = 0x00;//led on
+    if (scroll == 0)
+    {
+        //not scroll
+        data[5] = 0x0;
+        testd = uset_value;
+    }
+    else
+    {
+        uset_value = testd;
+        testd = (testd + 1)%36;
+        data[5] = 0x1;
+    }
+    data[4] = testd;
+
+	//call interface to send data to iot platform
+    ocean_send_data(data, 6);
+    
+    rmsgcnt = ocean_get_unread_pkg();
+    while(rmsgcnt > 0)
+    {
+		 //call interface to receive data to iot platform
+        n = ocean_recv_data(test_rbuf, 512);
+        if (n > 0)
+        {
+            ocean_dev_control(test_rbuf, n);
+        }
+    }
+    osDelay(1000);
+}
+```
+
+至此，南向设备的基本业务逻辑已经跑通，后面将介绍如何使用OceanConnect对接南向设备。
