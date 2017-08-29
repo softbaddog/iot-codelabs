@@ -16,22 +16,68 @@
 
 ```c
 // 开发者注册该函数进行命令接收的处理 
-HW_INT Switch_CommandRecvtHandler(HW_UINT uiCookie, HW_MSG pstMsg) 
-{ 
-HW_CHAR *pcMethod, *pcServiceId, *pcCmdContent, *pcDeviceId; 
- 
-pcDeviceId = HW_MsgGetStr(pstMsg, EN_IOTA_DATATRANS_IE_DEVICEID); 
-pcServiceId = HW_MsgGetStr(pstMsg, EN_IOTA_DATATRANS_IE_SERVICEID); 
-pcMethod = HW_MsgGetStr(pstMsg, EN_IOTA_DATATRANS_IE_METHOD); 
-pcCmdContent = HW_MsgGetStr(pstMsg, EN_IOTA_DATATRANS_IE_CMDCONTENT); 
- 
-if (strcmp(pcServiceId, “switch”)) 
-{ 
-//根据Proflie定义的命令参数，使用Json组件解析pcCmdContent 
-//Send command to Switch 
-} 
- 
-return 0; 
+HW_INT Device_ServiceCommandReceiveHandler(HW_UINT uiCookie, HW_MSG pstMsg)
+{
+    HW_CHAR *pcDevId;
+    HW_CHAR *pcReqId;
+    HW_CHAR *pcServiceId;
+    HW_CHAR *pcMethod;
+    HW_BYTES *pbstrContent;
+    HW_JSONOBJ jsonObj;
+    HW_JSON jsonRoot;
+    HW_CHAR pcTemp[256] = {0};
+
+    pcDevId = HW_MsgGetStr(pstMsg,EN_IOTA_DATATRANS_IE_DEVICEID);
+    pcReqId = HW_MsgGetStr(pstMsg,EN_IOTA_DATATRANS_IE_REQUESTID);
+    pcServiceId = HW_MsgGetStr(pstMsg,EN_IOTA_DATATRANS_IE_SERVICEID);    
+    pcMethod = HW_MsgGetStr(pstMsg,EN_IOTA_DATATRANS_IE_METHOD);
+    pbstrContent = HW_MsgGetBstr(pstMsg,EN_IOTA_DATATRANS_IE_CMDCONTENT);
+    
+    if ((HW_NULL == pcDevId)
+        ||(HW_NULL == pcReqId)
+        ||(HW_NULL == pcServiceId)
+        ||(HW_NULL == pcMethod)
+        )
+    {
+        HW_LOG_ERR("RcvCmd is invalid, pcDevId=%s, pcReqId=%s, pcServiceId=%s, pcMethod=%s.",
+                    pcDevId, pcReqId, pcServiceId, pcMethod); 
+        return HW_ERR;
+    }
+
+    HW_LOG_INF(" ---Device_ServiceCommandReceiveHandler--- pcDevId=%s, pcReqId=%s, pcServiceId=%s, pcMethod=%s, pbstrContent=%s.",
+        pcDevId, pcReqId, pcServiceId, pcMethod, pbstrContent->pcByte);
+
+    jsonObj = HW_JsonDecodeCreate(pbstrContent->pcByte, HW_TRUE);
+    jsonRoot = HW_JsonGetJson(jsonObj);
+
+    //if (0 == strncmp(IOTA_SERVICE_LEDCHAR, pcServiceId, strlen(IOTA_SERVICE_LEDCHAR)))
+    if (0 == strncmp("SET_LED_CHAR_IDX", pcMethod, strlen(pcMethod)))
+    {
+        strcpy(pcTemp,HW_JsonGetStr(jsonRoot, "ledcharidx"));
+        g_uiCurLedIdx = atoi(pcTemp);
+        HW_LOG_INF(" ---g_uiCurLedIdx be seted %d ---.", g_uiCurLedIdx);
+    }
+    
+    if (0 == strncmp("SET_LED_CHAR_ROLL", pcMethod, strlen(pcMethod)))
+    {
+        strcpy(pcTemp, HW_JsonGetStr(jsonRoot, "ledcharroll"));
+        if (atoi(pcTemp) > HW_FALSE)
+        {
+            g_bRollStatus = HW_TRUE;
+            HW_LOG_INF(" ---g_bRollStatus be seted success ---.");
+        }
+    }
+
+    if (0 == strncmp(METHOD_REMOVE_GATEWAY,pcMethod,strlen(METHOD_REMOVE_GATEWAY)))
+    {
+        g_uiLoginFlg = HW_FALSE;
+        IOTA_RmvGateWay();
+        HW_LOG_INF(" ---IOTA_RmvGateWay success ---.");
+    }
+
+    HW_JsonObjDelete(&jsonObj);
+   
+    return HW_OK;
 }
 //在设备添加成功后立即注册设备命令接收广播 
 HW_BroadCastReg(“IOTA_TOPIC_SERVICE_CMD_RECEIVE/XXXX_XXXX_XXXX_XXXX”, 

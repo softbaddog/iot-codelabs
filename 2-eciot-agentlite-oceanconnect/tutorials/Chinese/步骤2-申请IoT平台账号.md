@@ -21,6 +21,6 @@
 
 软件名 | 描述 | 获取途径
 --- | --- | ---
-Profile文件Gateway : Gateway_Huawei_AR502CBGS-L.zip | 设备的描述文件，需要上传到OceanConnect | [下载](https://github.com/softbaddog/iot-codelabs/blob/master/2-eciot-agentlite-oceanconnect/tools/profile/Gateway_Huawei_AR502CBGS-L.zip)
-Profile文件Demo：LedAdvert_Huawei_MTRX01.zip | 设备的描述文件，需要上传到OceanConnect | [下载](https://github.com/softbaddog/iot-codelabs/blob/master/2-eciot-agentlite-oceanconnect/tools/profile/LedAdvert_Huawei_MTRX01.zip)
+Profile文件Gateway : Gateway_Huawei_AR502CBGS-L.zip | 设备的描述文件，需要上传到OceanConnect | [下载](https://github.com/softbaddog/iot-codelabs/blob/master/2-eciot-agentlite-oceanconnect/tools/profile/)
+Profile文件Demo：LedAdvert_Huawei_MTRX01.zip | 设备的描述文件，需要上传到OceanConnect | [下载](https://github.com/softbaddog/iot-codelabs/blob/master/2-eciot-agentlite-oceanconnect/tools/profile/)
 北向应用Demo：North_App_demo | 扮演管理平台的角色，从OceanConnect获取设备上报的数据，并可以通过OceanConnect下发控制命令 | [下载](https://github.com/softbaddog/iot-codelabs/blob/master/2-eciot-agentlite-oceanconnect/tools/GUI%20demo/North_App_demo.rar)
